@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .movie-details-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: #181818;
+            border-radius: 12px;
+            margin: 2rem auto;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        .movie-details-image {
+            flex: 1 1 250px;
+            min-width: 220px;
+            max-width: 300px;
+        }
+        .movie-details-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .movie-details-info {
+            flex: 2 1 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .movie-details-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .movie-details-category {
+            background: #e50914;
+            color: #fff;
+            display: inline-block;
+            padding: 0.3em 1em;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .movie-details-imdb {
+            color: #f5c518;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+        .divider {
+            border-top: 5px solid #333;
+            margin: 2rem 0 1.5rem 0;
+        }
+        .download-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #222;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .download-table th, .download-table td {
+            padding: 1em;
+            text-align: left;
+        }
+        .download-table th {
+            background: #333;
+            color: #fff;
+        }
+        .download-table td {
+            color: #eee;
+        }
+        .download-btn {
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1.2em;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .download-btn:hover {
+            background: #b0060f;
+        }
+        .similar-movies-section {
+            margin-top: 2rem;
+        }
+        .similar-movies-title {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .similar-movies-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .similar-movie-card {
+            background: #181818;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 120px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .similar-movie-card img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
+        .similar-movie-title {
+            color: #fff;
+            font-size: 0.95rem;
+            padding: 0.5em 0.2em;
+        }
+        @media (max-width: 700px) {
+            .movie-details-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .movie-details-image, .movie-details-info {
+                max-width: 100%;
+            }
+            .similar-movies-list {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Mobile Menu Icon -->
+            <div class="mobile-menu-icon">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Logo -->
+            <div class="logo">
+                <a href="/">
+                    <img src="./logo.png" alt="PikoHub.com Logo" class="logo-img" />
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <ul class="main-menu">
+                    <li class="menu-item">
+                        <a href="#">Movies</a>
+                        <ul class="submenu">
+                            <li><a href="#">English</a></li>
+                            <li><a href="#">Hindi</a></li>
+                            <li><a href="#">Telugu</a></li>
+                            <li><a href="#">Tamil</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">Genres</a>
+                        <ul class="submenu">
+                            <li><a href="#">Anime</a></li>
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Adventure</a></li>
+                            <li><a href="#">Biography</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="#">Special Categories</a>
+                        <ul class="submenu">
+                            <li><a href="#">Top 250 Movies</a></li>
+                            <li><a href="#">Oscar Winning Movies</a></li>
+                            <li><a href="#">Movies & TV Series</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="desktop-search">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="mobile-search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar (Hidden by default) -->
+        <div class="mobile-search-bar">
+            <input type="text" placeholder="Search...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <nav class="mobile-nav">
+        <ul class="main-menu">
+            <li class="menu-item">
+                <a href="#">Movies</a>
+                <ul class="submenu">
+                    <li><a href="#">English</a></li>
+                    <li><a href="#">Hindi</a></li>
+                    <li><a href="#">Telugu</a></li>
+                    <li><a href="#">Tamil</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Genres</a>
+                <ul class="submenu">
+                    <li><a href="#">Anime</a></li>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Adventure</a></li>
+                    <li><a href="#">Biography</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Special Categories</a>
+                <ul class="submenu">
+                    <li><a href="#">Top 250 Movies</a></li>
+                    <li><a href="#">Oscar Winning Movies</a></li>
+                    <li><a href="#">Movies & TV Series</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sub Header with A-Z Letters -->
+    <div class="sub-header">
+        <div class="letters-container">
+            <a href="#A">A</a>
+            <a href="#B">B</a>
+            <a href="#C">C</a>
+            <a href="#D">D</a>
+            <a href="#E">E</a>
+            <a href="#F">F</a>
+            <a href="#G">G</a>
+            <a href="#H">H</a>
+            <a href="#I">I</a>
+            <a href="#J">J</a>
+            <a href="#K">K</a>
+            <a href="#L">L</a>
+            <a href="#M">M</a>
+            <a href="#N">N</a>
+            <a href="#O">O</a>
+            <a href="#P">P</a>
+            <a href="#Q">Q</a>
+            <a href="#R">R</a>
+            <a href="#S">S</a>
+            <a href="#T">T</a>
+            <a href="#U">U</a>
+            <a href="#V">V</a>
+            <a href="#W">W</a>
+            <a href="#X">X</a>
+            <a href="#Y">Y</a>
+            <a href="#Z">Z</a>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <main>
+            <div class="movie-details-container" id="movie-details-container">
+                <!-- Filled by JS -->
+            </div>
+            <div class="divider"></div>
+            <div id="download-section"></div>
+            <div class="divider"></div>
+            <div class="similar-movies-section">
+                <div class="similar-movies-title">Similar Movies</div>
+                <div class="similar-movies-list" id="similar-movies-list"></div>
+            </div>
+        </main>
+        <aside>
+            <h3>Categories</h3>
+            <ul class="category-list">
+              <li>Oscar Winning Movies</li>
+              <li>IMDb Top 250 Movies</li>
+              <li>Anime</li>
+              <li>DC, Marvel or Superhero Movies & TV Series</li>
+              <li>4K ULTRA-HD 2160p</li>
+              <li>2K 1080p Full HD</li>
+              <li>Sports Related Movies</li>
+              <li>Animation & Cartoon Movies</li>
+              <li>Bollywood Hindi Movies</li>
+              <li>English (Hollywood)</li>
+              <li>Tamil</li>
+              <li>Telugu</li>
+              <li>Malayalam</li>
+              <li>Kannada</li>
+              <li>Korean</li>
+              <li>Japanese & Chinese</li>
+              <li>Turkish</li>
+              <li>Spanish</li>
+              <li>Dual Audio</li>
+              <li>Hindi Dubbed</li>
+              <li>HEVC Collection</li>
+              <li>TV & Web Series</li>
+              <li>TV Show</li>
+              <li>Foreign Movies OR Other Industry (Mixed)</li>
+            </ul>
+          </aside>
+    </div>
+
+    <div id="inline-search-results" class="inline-search-results" style="display:none;"></div>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="/">
+                    <img src="./logo.png" alt="PikoHub.com Logo" class="logo-img" />
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2025 PikoHub.com All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="movies.js"></script>
+    <script src="script.js"></script>
+    <script src="movie-details.js"></script>
+</body>
+</html> 
